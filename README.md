@@ -1,2 +1,2 @@
-# TimeToType
-A quick write game.
+# TimeToType !
+This will grow...
