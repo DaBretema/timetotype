@@ -13,10 +13,9 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	tm "github.com/buger/goterm"
-	"github.com/dcabalas/TimeToType/models"
+	"github.com/dcabalas/TimeToType/back"
 	"math/rand"
 	"os"
 	"time"
@@ -25,8 +24,8 @@ import (
 func main() {
 
 	t := time.Now()
-	p := player.NewPlayer(2*time.Minute, 5, 0, 0, 0)
-	words := TextMap()
+	p := back.NewPlayer(2*time.Minute, 5, 0, 0, 0)
+	words := back.FileMap("resources/words.txt")
 
 	rand.Seed(t.Unix())
 
@@ -40,20 +39,6 @@ func main() {
 		p.Play(words)
 	}
 
-	fmt.Println("\n\nTÚ PIERDES D:")
-}
-
-//Montaje del map de palabras.
-func TextMap() map[int]string {
-	file, _ := os.Open("words.txt")
-	defer file.Close()
-
-	words := make(map[int]string)
-	scanner := bufio.NewScanner(file)
-
-	for i := 0; scanner.Scan(); i++ {
-		words[i] = scanner.Text()
-	}
-
-	return words
+	fmt.Println("\n>> TÚ PIERDES D:")
+	os.Exit(1)
 }

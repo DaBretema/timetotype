@@ -1,8 +1,9 @@
-package player
+package back
 
 import (
 	"fmt"
 	"math/rand"
+	"os"
 	"time"
 )
 
@@ -24,10 +25,12 @@ func NewPlayer(timer time.Duration, lifes, level, okay, flag byte) Player {
 
 // Decremento del tiempo.
 func (p *Player) Time() {
-	for p.Timer != 0 {
+	for p.Timer > 0 {
 		time.Sleep(time.Second)
 		p.Timer -= time.Duration(p.Level+1) * 2 * time.Second
 	}
+	fmt.Println("\n>> TÚ PIERDES D:")
+	os.Exit(1)
 }
 
 // Linea de visualizacion de datos.
@@ -51,7 +54,8 @@ func (p *Player) Play(words map[int]string) {
 			p.Flag = 1
 		}
 	} else {
-		fmt.Println("\n\n TÚ GANAS :D")
+		fmt.Println("\n>> TÚ GANAS :D")
+		os.Exit(2)
 	}
 }
 
