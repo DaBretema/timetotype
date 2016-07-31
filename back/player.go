@@ -7,23 +7,24 @@ import (
 	"time"
 )
 
-// Estructura de un jugador.
+// Player es la clase del jugador.
 type Player struct {
-	Timer                    time.Duration
-	Lifes, Level, Okay, Flag byte
+	Timer              time.Duration
+	Flag               bool
+	Lifes, Level, Okay byte
 }
 
-// Constructor.
-func NewPlayer(timer time.Duration, lifes, level, okay, flag byte) Player {
-	return Player {
+// NewPlayer es el constructor de la clase jugador.
+func NewPlayer(timer time.Duration, lifes, level, okay byte, flag bool) Player {
+	return Player{
 		Timer: timer,
 		Lifes: lifes,
 		Level: level,
 		Okay:  okay,
-		Flag:  flag }
+		Flag:  flag}
 }
 
-// Decremento del tiempo.
+// Time manjea el decremento del tiempo.
 func (p *Player) Time() {
 	for p.Timer > 0 {
 		time.Sleep(time.Second)
@@ -33,25 +34,25 @@ func (p *Player) Time() {
 	os.Exit(1)
 }
 
-// Linea de visualizacion de datos.
+// UI printa los datos del jugador.
 func (p Player) UI() {
 	fmt.Println("T...", p.Timer)
 	fmt.Printf("♥.%d √.%d ╙.%d\n", p.Lifes, p.Okay, p.Level)
 }
 
-// Muestra palabra, solicita entrada.
+// Play muestra una palabra y solicita entrada.
 func (p *Player) Play(words map[int]string) {
 	var input string
 	if len(words) > 0 {
 		if p.Lifes > 0 {
 			cont := rand.Intn(len(words))
 
-			fmt.Print("\nSYS: ",words[cont],"\nYOU: " )
+			fmt.Print("\nSYS: ", words[cont], "\nYOU: ")
 			fmt.Scan(&input)
 
 			p.Check(input, cont, words)
 		} else {
-			p.Flag = 1
+			p.Flag = false
 		}
 	} else {
 		fmt.Println("\n>> TÚ GANAS :D")
@@ -59,7 +60,7 @@ func (p *Player) Play(words map[int]string) {
 	}
 }
 
-// Comprueba que la ultima palabra sea correcta
+// Check comprueba que la ultima palabra sea correcta
 // si lo es incrementa aciertos y borra la palabra
 // si el numero de aciertos es *5 el nivel del jugador incrementa el nivel
 // si no es correcta, resta una vida al jugador.

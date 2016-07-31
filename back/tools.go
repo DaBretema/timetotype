@@ -1,21 +1,21 @@
 package back
 
 import (
-    "bufio"
-    "os"
+	"bufio"
+	"os"
 )
 
-// Montaje line a linea de un mapa de int a strings dado un fichero.
+// FileMap monta linea a linea de un mapa de int a strings dado un fichero.
 func FileMap(filePath string) map[int]string {
-    file, _ := os.Open(filePath)
-    defer file.Close()
+	file, _ := os.Open(filePath)
+	defer file.Close()
 
-    words := make(map[int]string)
-    scanner := bufio.NewScanner(file)
+	words := make(map[int]string)
+	scanner := bufio.NewScanner(file)
 
-    for i := 0; scanner.Scan(); i++ {
-        words[i] = scanner.Text()
-    }
+	for i := 0; scanner.Scan(); i++ {
+		words[i] = scanner.Text()
+	}
 
-    return words
+	return words
 }
