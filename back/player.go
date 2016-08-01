@@ -34,14 +34,14 @@ func (p *Player) Time() {
 	os.Exit(1)
 }
 
-// UI printa los datos del jugador.
-func (p Player) UI() {
+// ShowData printa los datos del jugador.
+func (p Player) ShowData() {
 	fmt.Println("T...", p.Timer)
 	fmt.Printf("♥.%d √.%d ╙.%d\n", p.Lifes, p.Okay, p.Level)
 }
 
 // Play muestra una palabra y solicita entrada.
-func (p *Player) Play(words map[int]string) {
+func (p *Player) Play(words map[int]string) (string, int) {
 	var input string
 	if len(words) > 0 {
 		if p.Lifes > 0 {
@@ -50,14 +50,14 @@ func (p *Player) Play(words map[int]string) {
 			fmt.Print("\nSYS: ", words[cont], "\nYOU: ")
 			fmt.Scan(&input)
 
-			p.Check(input, cont, words)
-		} else {
-			p.Flag = false
+			return input, cont
 		}
+		p.Flag = false
 	} else {
 		fmt.Println("\n>> TÚ GANAS :D")
 		os.Exit(2)
 	}
+	return "", 0
 }
 
 // Check comprueba que la ultima palabra sea correcta

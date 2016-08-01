@@ -1,4 +1,4 @@
-// iVerano de 2016.
+// Verano de 2016.
 // Daniel Camba Lamas.
 // JUEGO PROPIO: TimeToType.
 
@@ -18,25 +18,25 @@ import (
 	"os"
 	"time"
 
-	tm "github.com/buger/goterm"
 	"github.com/dcabalas/TimeToType/back"
 )
 
 func main() {
 	t := time.Now()
-	p := back.NewPlayer(2*time.Minute, 5, 0, 0, true)
-	words := back.FileMap("resources/words.txt")
-
 	rand.Seed(t.Unix())
+
+	words := back.FileMap("resources/words.txt")
+	p := back.NewPlayer(2*time.Minute, 5, 0, 0, true)
 
 	go p.Time()
 
 	for p.Flag {
-		tm.Clear()
-		tm.MoveCursor(1, 1)
-		tm.Flush()
-		p.UI()
-		p.Play(words)
+		back.ResetPos()
+		p.ShowData()
+		input, wordNum := p.Play(words)
+		if !(input == "" && wordNum == 0) {
+			p.Check(input, wordNum, words)
+		}
 	}
 
 	fmt.Println("\n>> TÚ PIERDES D:")
