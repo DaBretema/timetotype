@@ -3,11 +3,11 @@
 // JUEGO PROPIO: TimeToType.
 
 /* TO DO...
-- Añadir GUI.
-- Elegir dificultad al inicio.
-- Detener programa al ganar o perder.
-- Mejorar 'formula' inc/decr del tiempo.
-- Particionar map 'words' por dificultad.
+[ ]Añadir GUI.
+[ ]Elegir dificultad al inicio.
+[x]Detener programa al ganar o perder.
+[ ]Mejorar 'formula' inc/decr del tiempo.
+[ ]Particionar map 'words' por dificultad.
 */
 
 package main
@@ -18,12 +18,11 @@ import (
 	"os"
 	"time"
 
-	"github.com/dcabalas/TimeToType/back"
+	"github.com/cambalamas/timetotype/back"
 )
 
 func main() {
-	t := time.Now()
-	rand.Seed(t.Unix())
+	rand.Seed(time.Now().Unix())
 
 	words := back.FileMap("resources/words.txt")
 	p := back.NewPlayer(2*time.Minute, 5, 0, 0, true)

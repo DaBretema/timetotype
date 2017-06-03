@@ -49,6 +49,7 @@ func (p *Player) Play(words map[int]string) (string, int) {
 
 			fmt.Print("\nSYS: ", words[cont], "\nYOU: ")
 			fmt.Scan(&input)
+			// fmt.Print("\n")
 
 			return input, cont
 		}
