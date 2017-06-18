@@ -17,20 +17,18 @@ import (
 	"math/rand"
 	"os"
 	"time"
-
-	"github.com/cambalamas/timetotype/back"
 )
 
 func main() {
 	rand.Seed(time.Now().Unix())
 
-	words := back.FileMap("resources/words.txt")
-	p := back.NewPlayer(2*time.Minute, 5, 0, 0, true)
+	words := FileMap("words.txt")
+	p := NewPlayer(2*time.Minute, 5, 0, 0, true)
 
 	go p.Time()
 
 	for p.Flag {
-		back.ResetPos()
+		ResetPos()
 		p.ShowData()
 		input, wordNum := p.Play(words)
 		if !(input == "" && wordNum == 0) {
