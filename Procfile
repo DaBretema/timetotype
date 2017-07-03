@@ -1,1 +1,1 @@
-worker: timetotype
+web: timetotype

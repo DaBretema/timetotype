@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"math/rand"
 	"os"
 	"time"
@@ -26,12 +27,12 @@ func NewPlayer(timer time.Duration, lifes, level, okay byte, flag bool) Player {
 
 // Time manjea el decremento del tiempo.
 func (p *Player) Time() {
+	// Per second loop
 	for p.Timer > 0 {
 		time.Sleep(time.Second)
 		p.Timer -= time.Duration(p.Level+1) * 2 * time.Second
+		fmt.Print(p.Timer)
 	}
-	fmt.Println("\n>> TÚ PIERDES D:")
-	os.Exit(1)
 }
 
 // ShowData printa los datos del jugador.
@@ -46,11 +47,8 @@ func (p *Player) Play(words map[int]string) (string, int) {
 	if len(words) > 0 {
 		if p.Lifes > 0 {
 			cont := rand.Intn(len(words))
-
 			fmt.Print("\nSYS: ", words[cont], "\nYOU: ")
-			fmt.Scan(&input)
-			// fmt.Print("\n")
-
+			log.Fatal(fmt.Scan(&input))
 			return input, cont
 		}
 		p.Flag = false
